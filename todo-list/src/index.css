@@ -58,3 +58,31 @@
   font-size: 18px;
   cursor: pointer;
 }
+
+.progressTab {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+}
+
+.progressBar {
+  background-color: #90ee90;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.removeBtn {
+  background-color: #4682b4;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
