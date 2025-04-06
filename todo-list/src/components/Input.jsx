@@ -1,4 +1,19 @@
-export default function Input() {
+import { useState } from "react";
+
+export default function Input({
+    onAdd
+}) {
+    const [inputValue, setInputValue] = useState('');
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value);
+    };
+
+    const handleAdd = () => {
+        onAdd(inputValue);
+        setInputValue('');
+    };
+
     return (
         <div className='inputContainer'>
             <input
@@ -6,8 +21,10 @@ export default function Input() {
                 placeholder="what needs to be done?"
                 className='input'
                 name="add-todo"
+                value={inputValue}
+                onChange={handleChange}
             />
-            <button className='addButton'>+</button>
+            <button className='addButton' onClick={handleAdd}>+</button>
         </div>
     );
 };
