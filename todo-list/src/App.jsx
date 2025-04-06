@@ -28,6 +28,10 @@ function App() {
         ]));
     };
 
+    const handleDeleteTodo = (todoId) => {
+        setTodos(todos.filter(todo => todo.id !== todoId));
+    };
+
     return (
         <>
             <div className='container'>
@@ -35,7 +39,7 @@ function App() {
 
                 <Input onAdd={handleAddTodo} />
 
-                <TodoList todos={todos} />
+                <TodoList todos={todos} onDelete={handleDeleteTodo}/>
 
                 <Progress />
             </div>

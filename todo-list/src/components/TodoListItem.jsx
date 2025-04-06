@@ -2,8 +2,10 @@ import { TiPencil } from "react-icons/ti";
 import { FaXmark } from "react-icons/fa6";
 
 export default function TodoListItem({
+    id,
     text,
-    isCompleted
+    isCompleted,
+    onDelete
 }) {
     return (
         <li className='todoItem'>
@@ -14,7 +16,7 @@ export default function TodoListItem({
                 {text}
             </span>
             <button className='iconButton'><TiPencil /></button>
-            <button className='iconButton'><FaXmark /></button>
+            <button className='iconButton' onClick={() => onDelete(id)}><FaXmark /></button>
         </li>
     );
 };
