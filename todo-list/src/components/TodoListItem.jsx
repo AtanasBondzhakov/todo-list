@@ -5,14 +5,17 @@ export default function TodoListItem({
     id,
     text,
     isCompleted,
-    onDelete
+    onDelete,
+    onToggle
 }) {
     return (
         <li className='todoItem'>
             <input
                 type="checkbox"
+                checked={isCompleted}
+                onChange={() => onToggle(id)}
             />
-            <span className='todoText'>
+            <span className={isCompleted ? 'todoText completed' : 'todoText'} >
                 {text}
             </span>
             <button className='iconButton'><TiPencil /></button>

@@ -32,6 +32,12 @@ function App() {
         setTodos(todos.filter(todo => todo.id !== todoId));
     };
 
+    const handleToggleCompleted = (todoId) => {
+        setTodos(prevState => prevState.map(todo =>
+            todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
+        ))
+    }
+
     return (
         <>
             <div className='container'>
@@ -39,7 +45,11 @@ function App() {
 
                 <Input onAdd={handleAddTodo} />
 
-                <TodoList todos={todos} onDelete={handleDeleteTodo}/>
+                <TodoList
+                    todos={todos}
+                    onDelete={handleDeleteTodo}
+                    onToggle={handleToggleCompleted}
+                />
 
                 <Progress />
             </div>

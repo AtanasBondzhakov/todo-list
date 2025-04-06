@@ -86,3 +86,7 @@
   cursor: pointer;
   border-radius: 4px;
 }
+
+.completed {
+  text-decoration: line-through;
+}
