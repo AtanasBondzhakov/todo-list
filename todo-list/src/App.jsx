@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 import TodoList from "./components/TodoList.jsx";
 import AddTodo from "./components/AddTodo.jsx";
 import Progress from "./components/Progress.jsx";
+import EditModal from "./components/EditModal.jsx";
 
 const initialTodos = [
     { id: 1, text: 'read the book (at least 5 pages)', isCompleted: false },
@@ -16,6 +17,8 @@ const initialTodos = [
 
 function App() {
     const [todos, setTodos] = useState(initialTodos);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editTodo, setEditTodo] = useState({});
 
     const handleAddTodo = (todo) => {
         setTodos(prevState => ([
@@ -36,7 +39,16 @@ function App() {
         setTodos(prevState => prevState.map(todo =>
             todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
         ))
-    }
+    };
+
+    const handleEditClick = (todoId) => {
+        setEditTodo(todos.find(todo => todo.id === todoId));
+        setEditModalOpen(true);
+    };
+
+    const handleEditCancelClick = () => {
+        setEditModalOpen(false);
+    };
 
     return (
         <>
@@ -49,7 +61,10 @@ function App() {
                     todos={todos}
                     onDelete={handleDeleteTodo}
                     onToggle={handleToggleCompleted}
+                    onEdit={handleEditClick}
                 />
+
+                {editModalOpen && <EditModal onCancel={handleEditCancelClick} editTodo={editTodo} />}
 
                 <Progress />
             </div>

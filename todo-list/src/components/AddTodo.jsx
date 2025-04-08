@@ -19,7 +19,7 @@ export default function AddTodo({
             <input
                 type="text"
                 placeholder="what needs to be done?"
-                className='add-todo'
+                className='addTodo'
                 name="add-todo"
                 value={addTodoValue}
                 onChange={handleChange}

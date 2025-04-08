@@ -6,7 +6,8 @@ export default function TodoListItem({
     text,
     isCompleted,
     onDelete,
-    onToggle
+    onToggle,
+    onEdit
 }) {
     return (
         <li className='todoItem'>
@@ -18,7 +19,7 @@ export default function TodoListItem({
             <span className={isCompleted ? 'todoText completed' : 'todoText'} >
                 {text}
             </span>
-            <button className='iconButton'><TiPencil /></button>
+            <button className='iconButton' onClick={() => onEdit(id)}><TiPencil /></button>
             <button className='iconButton' onClick={() => onDelete(id)}><FaXmark /></button>
         </li>
     );
