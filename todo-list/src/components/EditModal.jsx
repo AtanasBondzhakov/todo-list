@@ -2,7 +2,8 @@ import { useState } from "react";
 
 export default function EditModal({
     onCancel,
-    editTodo
+    editTodo,
+    onUpdate
 }) {
     const [editTodoValue, setEditTodoValue] = useState(editTodo.text);
 
@@ -15,7 +16,7 @@ export default function EditModal({
                     value={editTodoValue}
                     onChange={(e) => setEditTodoValue(e.target.value)}
                 />
-                <button>Update</button>
+                <button onClick={() => onUpdate(editTodo.id, editTodoValue)}>Update</button>
                 <button onClick={onCancel}>Cancel</button>
             </div>
         </div>

@@ -50,6 +50,14 @@ function App() {
         setEditModalOpen(false);
     };
 
+    const handleEditUpdateTodo = (todoId, newText) => {
+        setTodos(prevState => prevState.map(todo =>
+            todo.id === todoId ? { ...todo, text: newText } : todo
+        ));
+
+        setEditModalOpen(false);
+    };
+
     return (
         <>
             <div className='container'>
@@ -64,7 +72,13 @@ function App() {
                     onEdit={handleEditClick}
                 />
 
-                {editModalOpen && <EditModal onCancel={handleEditCancelClick} editTodo={editTodo} />}
+                {editModalOpen && (
+                    <EditModal
+                        onCancel={handleEditCancelClick}
+                        editTodo={editTodo}
+                        onUpdate={handleEditUpdateTodo}
+                    />
+                )}
 
                 <Progress />
             </div>
