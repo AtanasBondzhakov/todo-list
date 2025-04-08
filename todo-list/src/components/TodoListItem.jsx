@@ -10,13 +10,13 @@ export default function TodoListItem({
     onEdit
 }) {
     return (
-        <li className='todoItem'>
+        <li className={isCompleted ? 'todoItem completed' : 'todoItem'}>
             <input
                 type="checkbox"
                 checked={isCompleted}
                 onChange={() => onToggle(id)}
             />
-            <span className={isCompleted ? 'todoText completed' : 'todoText'} >
+            <span className='todoText'>
                 {text}
             </span>
             <button className='iconButton' onClick={() => onEdit(id)}><TiPencil /></button>
