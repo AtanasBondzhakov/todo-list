@@ -63,7 +63,7 @@ function App() {
 
                 <AddTodo onAdd={handleAddTodo} />
 
-                {addTodoError && <div style={{ color: 'red', textAlign: 'center', paddingTop: '1em'}}>{addTodoError}</div>}
+                {addTodoError && <div style={{ color: 'red', textAlign: 'center', paddingTop: '1em' }}>{addTodoError}</div>}
 
                 <TodoList
                     todos={todos}
@@ -80,7 +80,7 @@ function App() {
                     />
                 )}
 
-                <Progress />
+                {todos.length > 0 && <Progress todos={todos} />}
             </div>
         </>
     )
