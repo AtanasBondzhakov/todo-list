@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-export default function Input({
+export default function AddTodo({
     onAdd
 }) {
-    const [inputValue, setInputValue] = useState('');
+    const [addTodoValue, setAddTodoValue] = useState('');
 
     const handleChange = (e) => {
-        setInputValue(e.target.value);
+        setAddTodoValue(e.target.value);
     };
 
     const handleAdd = () => {
-        onAdd(inputValue);
-        setInputValue('');
+        onAdd(addTodoValue);
+        setAddTodoValue('');
     };
 
     return (
@@ -19,9 +19,9 @@ export default function Input({
             <input
                 type="text"
                 placeholder="what needs to be done?"
-                className='input'
+                className='add-todo'
                 name="add-todo"
-                value={inputValue}
+                value={addTodoValue}
                 onChange={handleChange}
             />
             <button className='addButton' onClick={handleAdd}>+</button>

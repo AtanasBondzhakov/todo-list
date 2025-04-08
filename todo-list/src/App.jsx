@@ -2,7 +2,7 @@ import { useState } from "react";
 import { v4 as uuidV4 } from 'uuid';
 
 import TodoList from "./components/TodoList.jsx";
-import Input from "./components/Input.jsx";
+import AddTodo from "./components/AddTodo.jsx";
 import Progress from "./components/Progress.jsx";
 
 const initialTodos = [
@@ -43,7 +43,7 @@ function App() {
             <div className='container'>
                 <h1 className='title'>TodoList</h1>
 
-                <Input onAdd={handleAddTodo} />
+                <AddTodo onAdd={handleAddTodo} />
 
                 <TodoList
                     todos={todos}
