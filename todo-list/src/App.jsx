@@ -6,29 +6,27 @@ import AddTodo from "./components/AddTodo.jsx";
 import Progress from "./components/Progress.jsx";
 import EditModal from "./components/EditModal.jsx";
 
-const initialTodos = [
-    { id: 1, text: 'read the book (at least 5 pages)', isCompleted: false },
-    { id: 2, text: 'buy dog food', isCompleted: true },
-    { id: 3, text: 'call my parents', isCompleted: false },
-    { id: 4, text: 'clean my working place', isCompleted: false },
-    { id: 5, text: 'kill Bill', isCompleted: true }
-];
-
-
 function App() {
-    const [todos, setTodos] = useState(initialTodos);
+    const [todos, setTodos] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editTodo, setEditTodo] = useState({});
+    const [addTodoError, setAddTodoError] = useState('');
 
-    const handleAddTodo = (todo) => {
+    const handleAddTodo = (text) => {
+        if (!text.trim()) {
+            return setAddTodoError('Please enter valid todo text.');
+        }
+
         setTodos(prevState => ([
             ...prevState,
             {
                 id: uuidV4(),
-                text: todo,
+                text: text.trim(),
                 isCompleted: false
             }
         ]));
+
+        setAddTodoError('');
     };
 
     const handleDeleteTodo = (todoId) => {
@@ -64,6 +62,8 @@ function App() {
                 <h1 className='title'>TodoList</h1>
 
                 <AddTodo onAdd={handleAddTodo} />
+
+                {addTodoError && <div style={{ color: 'red', textAlign: 'center', paddingTop: '1em'}}>{addTodoError}</div>}
 
                 <TodoList
                     todos={todos}

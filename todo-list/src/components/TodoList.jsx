@@ -6,9 +6,6 @@ export default function TodoList({
     onToggle,
     onEdit
 }) {
-
-    console.log(todos);
-    
     return (
         <ul className='todoList'>
             {todos.length > 0
