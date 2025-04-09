@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TodoListItem from "./TodoListItem.jsx";
+import useTodosList from "../hooks/useTodosList.js";
 
 export default function TodoList({
     todos,
@@ -9,11 +10,7 @@ export default function TodoList({
     currentPage,
     todosPerPage
 }) {
-    const [todosRender, setTodosRender] = useState([]);
-
-    useEffect(() => {
-        setTodosRender(todos.slice(todosPerPage * (currentPage - 1), todosPerPage * currentPage));
-    }, [todos, currentPage, todosPerPage]);
+    const { todosRender } = useTodosList({ todos, todosPerPage, currentPage });
 
     return (
         <ul className='todoList'>
