@@ -16,7 +16,7 @@ export default function Progress({
                 </div>
             </div>
             <div>
-                {doneTodos.length} of {todos.length} tasks done.
+                {doneTodos.length} of {todos.length} tasks done
             </div>
         </div>
     );

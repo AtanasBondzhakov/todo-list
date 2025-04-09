@@ -9,15 +9,17 @@ export default function EditModal({
 
     return (
         <div className="modal">
-            <div className="modal-content">
+            <div className="modalContent">
                 <h2>Edit Todo</h2>
                 <input
                     type="text"
                     value={editTodoValue}
                     onChange={(e) => setEditTodoValue(e.target.value)}
                 />
-                <button onClick={() => onUpdate(editTodo.id, editTodoValue)}>Update</button>
-                <button onClick={onCancel}>Cancel</button>
+                <div className="buttons">
+                    <button onClick={() => onUpdate(editTodo.id, editTodoValue)}>Update</button>
+                    <button onClick={onCancel}>Cancel</button>
+                </div>
             </div>
         </div>
     );

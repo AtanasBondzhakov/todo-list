@@ -18,7 +18,7 @@ export default function TodoList({
                         onEdit={onEdit}
                     />
                 ))
-                : 'There is no any Todo at the moment.'
+                : <h2>There is no any Todo at the moment.</h2>
             }
         </ul>
     );

@@ -63,7 +63,7 @@ function App() {
 
                 <AddTodo onAdd={handleAddTodo} />
 
-                {addTodoError && <div style={{ color: 'red', textAlign: 'center', paddingTop: '1em' }}>{addTodoError}</div>}
+                {addTodoError && <div className="errorContainer">{addTodoError}</div>}
 
                 <TodoList
                     todos={todos}
