@@ -5,12 +5,15 @@ import TodoList from "./components/TodoList.jsx";
 import AddTodo from "./components/AddTodo.jsx";
 import Progress from "./components/Progress.jsx";
 import EditModal from "./components/EditModal.jsx";
+import Pagination from "./components/Pagination.jsx";
 
 function App() {
     const [todos, setTodos] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editTodo, setEditTodo] = useState({});
     const [addTodoError, setAddTodoError] = useState('');
+    const [todosPerPage, setTodosPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const handleAddTodo = (text) => {
         if (!text.trim()) {
@@ -56,10 +59,14 @@ function App() {
         setEditModalOpen(false);
     };
 
+    const handleCurrentPageChange = (page) => {
+        setCurrentPage(page);
+    }
+
     return (
         <>
             <div className='container'>
-                <h1 className='title'>TodoList</h1>
+                <h1 className='title'>Todo List</h1>
 
                 <AddTodo onAdd={handleAddTodo} />
 
@@ -70,6 +77,8 @@ function App() {
                     onDelete={handleDeleteTodo}
                     onToggle={handleToggleCompleted}
                     onEdit={handleEditClick}
+                    currentPage={currentPage}
+                    todosPerPage={todosPerPage}
                 />
 
                 {editModalOpen && (
@@ -81,6 +90,13 @@ function App() {
                 )}
 
                 {todos.length > 0 && <Progress todos={todos} />}
+
+                <Pagination
+                    todosPerPage={todosPerPage}
+                    todos={todos}
+                    pageChange={handleCurrentPageChange}
+                    currentPage={currentPage}
+                />
             </div>
         </>
     )

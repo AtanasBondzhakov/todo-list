@@ -35,12 +35,15 @@ body {
   gap: 0.5em;
 }
 
+.todoList h3 {
+  text-align: center;
+}
+
 .todoItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5em;
-  /* border-bottom: 1px solid #eee; */
 }
 
 .todoInfo {
@@ -203,9 +206,30 @@ body {
 
 .errorContainer {
   position: absolute;
-  top: 45%;
-  left: 40%;
+  top: 120px;
+  left: 35%;
   color: red;
   text-align: center;
   padding-top: 1em;
+}
+
+.paginator {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5em;
+  gap: 0.5em;
+}
+
+.paginatorBtn {
+  padding: 0.3em 0.5em;
+  font-size: 1em;
+  border-radius: 0.3em;
+}
+
+.paginatorBtn:hover {
+  cursor: pointer;
+}
+
+.active {
+  background-color: #868686;
 }
