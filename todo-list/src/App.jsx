@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { v4 as uuidV4 } from 'uuid';
+import { useCallback, useState } from "react";
 
 import TodoList from "./components/TodoList.jsx";
 import AddTodo from "./components/AddTodo.jsx";
@@ -7,82 +6,62 @@ import Progress from "./components/Progress.jsx";
 import EditModal from "./components/EditModal.jsx";
 import Pagination from "./components/Pagination.jsx";
 import Error from "./components/Error.jsx";
+import { useTodo } from "./hooks/useTodo.js";
 
 function App() {
-    const [todos, setTodos] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editTodo, setEditTodo] = useState({});
-    const [error, setError] = useState({ addError: false, editError: false });
     const [todosPerPage, setTodosPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
+    const [error, setError] = useState({ addError: false, editError: false });
 
-    const handleAddTodo = (text) => {
-        if (!text.trim()) {
-            return setError(prevState => ({ ...prevState, addError: true }));
-        }
+    const {
+        todos,
+        addTodo,
+        deleteTodo,
+        toggleCompleted,
+        editUpdateTodo } = useTodo(handleErrors);
 
-        setTodos(prevState => ([
-            ...prevState,
-            {
-                id: uuidV4(),
-                text: text.trim(),
-                isCompleted: false
-            }
-        ]));
-
-        setError(prevState => ({ ...prevState, addError: false }));
+    function handleErrors(errorKey, value) {
+        setError(prevState => ({ ...prevState, [errorKey]: value }));
     };
 
-    const handleDeleteTodo = (todoId) => {
-        setTodos(todos.filter(todo => todo.id !== todoId));
-    };
-
-    const handleToggleCompleted = (todoId) => {
-        setTodos(prevState => prevState.map(todo =>
-            todo.id === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo
-        ))
-    };
-
-    const handleEditClick = (todoId) => {
+    const handleEditClick = useCallback((todoId) => {
         setEditTodo(todos.find(todo => todo.id === todoId));
         setEditModalOpen(true);
-    };
+    }, [todos]);
 
-    const handleEditCancelClick = () => {
+    const handleEditCancelClick = useCallback(() => {
         setEditModalOpen(false);
-        setError(prevState => ({ ...prevState, editError: false }))
-    };
+        setError(prevState => ({ ...prevState, editError: false }));
+    }, []);
 
     const handleEditUpdateTodo = (todoId, newText) => {
-        if (!newText.trim()) {
-            return setError(prevState => ({ ...prevState, editError: true }));
+        const isSuccess = editUpdateTodo(todoId, newText);
+
+        if (isSuccess) {
+            setEditModalOpen(false);
+            setEditTodo({});
         }
-
-        setTodos(prevState => prevState.map(todo =>
-            todo.id === todoId ? { ...todo, text: newText } : todo
-        ));
-
-        setError(prevState => ({ ...prevState, editError: false }));
-        setEditModalOpen(false);
     };
 
     const handleCurrentPageChange = (page) => {
         setCurrentPage(page);
-    }
+    };
 
     return (
         <>
             <div className='container'>
                 <h1 className='title'>Todo List</h1>
 
-                <AddTodo onAdd={handleAddTodo} />
+                <AddTodo onAdd={addTodo} />
 
                 {error.addError && <Error />}
 
                 <TodoList
                     todos={todos}
-                    onDelete={handleDeleteTodo}
-                    onToggle={handleToggleCompleted}
+                    onDelete={deleteTodo}
+                    onToggle={toggleCompleted}
                     onEdit={handleEditClick}
                     currentPage={currentPage}
                     todosPerPage={todosPerPage}
