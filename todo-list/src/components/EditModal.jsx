@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Error from "./Error";
 
 export default function EditModal({
     onCancel,
     editTodo,
-    onUpdate
+    onUpdate,
+    error
 }) {
     const [editTodoValue, setEditTodoValue] = useState(editTodo.text);
 
@@ -16,9 +18,12 @@ export default function EditModal({
                     value={editTodoValue}
                     onChange={(e) => setEditTodoValue(e.target.value)}
                 />
+
+                {error && <Error />}
+
                 <div className="buttons">
-                    <button onClick={() => onUpdate(editTodo.id, editTodoValue)}>Update</button>
-                    <button onClick={onCancel}>Cancel</button>
+                    <button className="buttons edit" onClick={() => onUpdate(editTodo.id, editTodoValue)}>Edit</button>
+                    <button className="buttons cancel" onClick={onCancel}>Cancel</button>
                 </div>
             </div>
         </div>

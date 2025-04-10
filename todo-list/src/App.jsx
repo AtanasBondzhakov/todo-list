@@ -6,18 +6,19 @@ import AddTodo from "./components/AddTodo.jsx";
 import Progress from "./components/Progress.jsx";
 import EditModal from "./components/EditModal.jsx";
 import Pagination from "./components/Pagination.jsx";
+import Error from "./components/Error.jsx";
 
 function App() {
     const [todos, setTodos] = useState([]);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [editTodo, setEditTodo] = useState({});
-    const [addTodoError, setAddTodoError] = useState('');
+    const [error, setError] = useState({ addError: false, editError: false });
     const [todosPerPage, setTodosPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
 
     const handleAddTodo = (text) => {
         if (!text.trim()) {
-            return setAddTodoError('Please enter valid todo text.');
+            return setError(prevState => ({ ...prevState, addError: true }));
         }
 
         setTodos(prevState => ([
@@ -29,7 +30,7 @@ function App() {
             }
         ]));
 
-        setAddTodoError('');
+        setError(prevState => ({ ...prevState, addError: false }));
     };
 
     const handleDeleteTodo = (todoId) => {
@@ -49,13 +50,19 @@ function App() {
 
     const handleEditCancelClick = () => {
         setEditModalOpen(false);
+        setError(prevState => ({ ...prevState, editError: false }))
     };
 
     const handleEditUpdateTodo = (todoId, newText) => {
+        if (!newText.trim()) {
+            return setError(prevState => ({ ...prevState, editError: true }));
+        }
+
         setTodos(prevState => prevState.map(todo =>
             todo.id === todoId ? { ...todo, text: newText } : todo
         ));
 
+        setError(prevState => ({ ...prevState, editError: false }));
         setEditModalOpen(false);
     };
 
@@ -70,7 +77,7 @@ function App() {
 
                 <AddTodo onAdd={handleAddTodo} />
 
-                {addTodoError && <div className="errorContainer">{addTodoError}</div>}
+                {error.addError && <Error />}
 
                 <TodoList
                     todos={todos}
@@ -86,6 +93,7 @@ function App() {
                         onCancel={handleEditCancelClick}
                         editTodo={editTodo}
                         onUpdate={handleEditUpdateTodo}
+                        error={error.editError}
                     />
                 )}
 

@@ -10,7 +10,7 @@ export default function TodoList({
     currentPage,
     todosPerPage
 }) {
-    const { todosRender } = useTodosList({ todos, todosPerPage, currentPage });
+    const { todosRender } = useTodosList(todos, todosPerPage, currentPage);
 
     return (
         <ul className='todoList'>

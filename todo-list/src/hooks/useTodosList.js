@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-export default function useTodosList({
+export default function useTodosList(
     todos,
     todosPerPage,
     currentPage
-}) {
+) {
     const [todosRender, setTodosRender] = useState([]);
 
     useEffect(() => {
