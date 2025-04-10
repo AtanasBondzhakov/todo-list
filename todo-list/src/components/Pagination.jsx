@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { usePagination } from "../hooks/usePagination.js";
 
 export default function Pagination({
     todosPerPage,
@@ -6,18 +6,7 @@ export default function Pagination({
     pageChange,
     currentPage
 }) {
-    const [pages, setPages] = useState([]);
-
-    useEffect(() => {
-        const totalPages = Math.ceil(todos.length / todosPerPage);
-        const generatedPages = [];
-
-        for (let i = 1; i <= totalPages; i++) {
-            generatedPages.push(i);
-        }
-
-        setPages(generatedPages);
-    }, [todos.length, todosPerPage]);
+    const { pages } = usePagination(todosPerPage, todos);
 
     return (
         <div className="paginator">
